@@ -22,36 +22,28 @@
 
 var test = require('tap').test,
   path = require('path'),
-  Star = require(path.resolve(__dirname, '..')),
-  star = Star({}),
+  Amdify = require(path.resolve(__dirname, '..')),
+  amdify = Amdify({}),
   fs = require('fs');
 
-test('construx-less', function (t) {
+test('construx-makara-amdify', function (t) {
 
-    t.test('processes a good star file', function (t) {
+    t.test('processes a good request for an amd languagepack file', function (t) {
         t.plan(1);
-        //get good star file
-        fs.readFile(path.resolve(__dirname, 'star/good.star'), function (err, data) {
-            star(data, {paths: '', context: {name: 'star.compiled'}}, function (err, compiled) {
-                t.equal('star', compiled);
-                t.end();
-            });
-
+        //process good languagepack request
+        var args = {
+            context: {
+                filePath: '/en-US/_languagepack.js'
+            },
+            i18n: {
+                contentPath: path.resolve(__dirname)
+            }
+        };
+        amdify(null, args, function (err, out) {
+            t.ok(out.indexOf('World') > 0);
+            t.end();
         });
-
     });
 
-    t.test('processes a bad star file', function (t) {
-        t.plan(1);
-        //get bad star file
-        fs.readFile(path.resolve(__dirname, 'star/bad.star'), function (err, data) {
-            star(data, {paths: '', context: {name: 'star.compiled'}}, function (err, compiled) {
-                t.ok(err.name === 'Error');
-                t.end();
-            });
-
-        });
-
-    });
 
 });
