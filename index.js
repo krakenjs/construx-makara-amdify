@@ -33,6 +33,9 @@ module.exports = function (options) {
     };
     return function (data, args, callback) {
         var locale = /(.*)-(.*)/.exec(args.context.filePath.substr(1,5));
+        if (!locale || locale.length !== 3) {
+            return callback(new Error('The locale part xx-XX was not found in the filePath'));
+        }
         moduleBuilder(args.i18n.contentPath, locale, function (err, out) {
            if (err !== null) {
                return callback(err);

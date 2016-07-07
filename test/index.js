@@ -44,6 +44,21 @@ test('construx-makara-amdify', function (t) {
             t.end();
         });
     });
-
+    t.test('processes a bad request for an amd languagepack file', function (t) {
+        t.plan(1);
+        //process good languagepack request
+        var args = {
+            context: {
+                filePath: '/enUS/_languagepack.js'
+            },
+            i18n: {
+                contentPath: path.resolve(__dirname)
+            }
+        };
+        amdify(null, args, function (err, out) {
+            t.ok(!!err);
+            t.end();
+        });
+    });
 
 });
