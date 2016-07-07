@@ -31,7 +31,6 @@
   "homepage": "https://github.com/krakenjs/construx-makara-amdify#readme",
   "dependencies": {
     "iferr": "^0.1.5",
-    "makara-writer-amd": "git://github.com/grawk/makara-writer-amd#master",
     "spundle": "^1.0.3"
   },
   "devDependencies": {
