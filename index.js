@@ -17,8 +17,14 @@
  \*───────────────────────────────────────────────────────────────────────────*/
 'use strict';
 
-var amdBuilder = require('makara-writer-amd').amdBuilder;
-
+var path = require('path');
+var iferr = require('iferr');
+var spundle = require('spundle');
+var moduleBuilder = function (appRoot, m, cb) {
+    spundle(path.resolve(appRoot, 'locales'), m[2], m[1], iferr(cb, function (out) {
+        cb(null, 'define("_languagepack", function () { return ' + JSON.stringify(out) + '; });');
+    }));
+};
 module.exports = function (options) {
 
     options.precompile = function (options, cb) {
@@ -27,7 +33,10 @@ module.exports = function (options) {
     };
     return function (data, args, callback) {
         var locale = /(.*)-(.*)/.exec(args.context.filePath.substr(1,5));
-        amdBuilder(args.i18n.contentPath, locale, function (err, out) {
+        if (!locale || locale.length !== 3) {
+            return callback(new Error('The locale part xx-XX was not found in the filePath'));
+        }
+        moduleBuilder(args.i18n.contentPath, locale, function (err, out) {
            if (err !== null) {
                return callback(err);
            }
