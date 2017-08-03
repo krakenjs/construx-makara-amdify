@@ -1,8 +1,12 @@
-##### v1.0.0 
+## Unreleased
+
+- fixes an assumption that the i18n path is the base path. (it is the path to the locales directory)
+
+## v1.0.0
 
 * FIX: add legit unit test to resolve https://github.com/krakenjs/construx-makara-amdify/issues/2
 * REFACTOR: remove dependency on `makara-writer-amd` module (deprecating)
 
-##### v0.0.1
+## v0.0.1
 
 First release of construx-makara-amdify
