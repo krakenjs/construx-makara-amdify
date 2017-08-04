@@ -27,16 +27,16 @@ var test = require('tap').test,
   fs = require('fs');
 
 test('construx-makara-amdify', function (t) {
+    t.plan(2);
 
     t.test('processes a good request for an amd languagepack file', function (t) {
-        t.plan(1);
         //process good languagepack request
         var args = {
             context: {
                 filePath: '/en-US/_languagepack.js'
             },
             i18n: {
-                contentPath: path.resolve(__dirname)
+                contentPath: path.resolve(__dirname, 'locales')
             }
         };
         amdify(null, args, function (err, out) {
@@ -44,8 +44,8 @@ test('construx-makara-amdify', function (t) {
             t.end();
         });
     });
+
     t.test('processes a bad request for an amd languagepack file', function (t) {
-        t.plan(1);
         //process good languagepack request
         var args = {
             context: {

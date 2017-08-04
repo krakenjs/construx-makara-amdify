@@ -21,7 +21,7 @@ var path = require('path');
 var iferr = require('iferr');
 var spundle = require('spundle');
 var moduleBuilder = function (appRoot, m, cb) {
-    spundle(path.resolve(appRoot, 'locales'), m[2], m[1], iferr(cb, function (out) {
+    spundle(path.resolve(appRoot), m[2], m[1], iferr(cb, function (out) {
         cb(null, 'define("_languagepack", function () { return ' + JSON.stringify(out) + '; });');
     }));
 };
@@ -37,9 +37,9 @@ module.exports = function (options) {
             return callback(new Error('The locale part xx-XX was not found in the filePath'));
         }
         moduleBuilder(args.i18n.contentPath, locale, function (err, out) {
-           if (err !== null) {
-               return callback(err);
-           }
+            if (err !== null) {
+                return callback(err);
+            }
             callback(null, out);
         });
 
