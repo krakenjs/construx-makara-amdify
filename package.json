@@ -1,6 +1,6 @@
 {
   "name": "construx-makara-amdify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "amd module compiler for makara languagepacks. a plugin for construx",
   "main": "index.js",
   "scripts": {
