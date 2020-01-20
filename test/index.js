@@ -23,11 +23,10 @@
 var test = require('tap').test,
   path = require('path'),
   Amdify = require(path.resolve(__dirname, '..')),
-  amdify = Amdify({}),
-  fs = require('fs');
+  amdify = Amdify({});
 
 test('construx-makara-amdify', function (t) {
-    t.plan(2);
+    t.plan(3);
 
     t.test('processes a good request for an amd languagepack file', function (t) {
         //process good languagepack request
@@ -41,6 +40,21 @@ test('construx-makara-amdify', function (t) {
         };
         amdify(null, args, function (err, out) {
             t.ok(out.indexOf('World') > 0);
+            t.end();
+        });
+    });
+
+    t.test('process a request with non-bcp47 formatted locale for an amd languagepack file', function (t) {
+        var args = {
+            context: {
+                filePath: '/es-GROUPBLATAM/_languagepack.js'
+            },
+            i18n: {
+                contentPath: path.resolve(__dirname, 'locales')
+            }
+        };
+        amdify(null, args, function (err, out) {
+            t.ok(out.indexOf('Mundo') > 0);
             t.end();
         });
     });
