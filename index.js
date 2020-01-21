@@ -32,7 +32,8 @@ module.exports = function (options) {
         cb(null, options);
     };
     return function (data, args, callback) {
-        var locale = /(.*)-(.*)/.exec(args.context.filePath.substr(1,5));
+        var filePath = args.context.filePath;
+        var locale = /(.*)-(.*)/.exec(filePath.substr(1,filePath.indexOf('/', 1) - 1));
         if (!locale || locale.length !== 3) {
             return callback(new Error('The locale part xx-XX was not found in the filePath'));
         }
